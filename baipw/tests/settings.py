@@ -28,6 +28,7 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
             ],
         },
     },
@@ -44,4 +45,15 @@ ROOT_URLCONF = 'baipw.tests.urls'
 
 if django.VERSION < (1, 9):
     # This is to satisfy the django-admin check command.
-    MIDDLEWARE_CLASSES = []
+    MIDDLEWARE_CLASSES = [
+        'django.contrib.auth.middleware.AuthenticationMiddleware',
+        'django.contrib.messages.middleware.MessageMiddleware',
+        'django.contrib.sessions.middleware.SessionMiddleware',
+    ]
+else:
+
+    MIDDLEWARE = [
+        'django.contrib.auth.middleware.AuthenticationMiddleware',
+        'django.contrib.messages.middleware.MessageMiddleware',
+        'django.contrib.sessions.middleware.SessionMiddleware',
+    ]
