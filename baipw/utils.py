@@ -49,6 +49,9 @@ def authorize(request, configured_username, configured_password):
         raise Unauthorized('Invalid format of the authorization header.')
     auth_method = authentication_tuple[0]
     auth = authentication_tuple[1]
+    auth_django = authentication_tuple[1].split(', ', 1)
+    if len(auth_django) == 2:
+        request.META['HTTP_AUTHORIZATION'] = auth_django[1]
     if 'basic' != auth_method.lower():
         raise Unauthorized('"Basic" is not an authorization method.')
     auth = base64.b64decode(auth.strip()).decode('utf-8')
